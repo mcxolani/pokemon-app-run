@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+    backendserver:
+        image: mcxolani/pokemon-backend:latest
+        ports:
+            - "7002:8080"
+        restart: always
+    frontend:
+        image: mcxolani/pokemon-frontend:latest
+        environment:
+            BACKEND_URL: ${BACKEND_URL}
+        links:
+            - "backendserver"
+        depends_on:
+            - "backendserver"
+        ports:
+            - "3001:80"
